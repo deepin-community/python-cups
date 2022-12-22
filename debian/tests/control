@@ -1,0 +1,3 @@
+Tests: testscripts
+Restrictions: needs-root
+Depends: cups, libcups2-dev, python3-all, python3-cups

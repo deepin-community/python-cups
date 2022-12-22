@@ -1,0 +1,42 @@
+#!/bin/sh
+set -efu
+
+filter_stderr_from_file() {
+    cat $1 | \
+        grep -v -E "lpadmin: (Raw queues|Printer drivers) are deprecated and will stop working in a future version of CUPS." \
+        || true \
+        1>&2
+}
+
+# Make sure we can print to Files
+sed -e 's/^#.*FileDevice.*$/FileDevice Yes/g' -i /etc/cups/cups-files.conf
+service cups restart
+
+TPRN1="test-printer1"
+ML="drv:///sample.drv/deskjet.ppd"
+STDERR_FILE=`mktemp`
+
+cleanup() {
+    # Delete it
+    echo -n " - Interrupted (or finished), delete test printers:"
+    lpadmin -x $TPRN1 2>/dev/null || :
+    rm -f $STDERR_FILE
+    echo " done."
+}
+
+trap cleanup EXIT INT
+
+echo " - Create printer $TPRN1"
+lpadmin -p $TPRN1 -v file:/dev/null -E -m $ML 2> $STDERR_FILE; filter_stderr_from_file $STDERR_FILE
+
+echo " - Now test python3-cups"
+
+pys="$(py3versions -r 2> /dev/null)"
+
+for py in $pys; do
+       echo "=== $py ==="
+       $py ./test.py 2>&1
+       $py ./examples/cupstree.py 2>&1
+       echo "# This one fails in autopkgtest, not in a VM, so run it, but ignore if it fails"
+       $py ./test-enum.py 2>&1 || :
+done
