@@ -1,4 +1,4 @@
-PYTHON=python
+PYTHON=python3
 NAME=pycups
 VERSION:=$(shell $(PYTHON) setup.py --version)
 SDIST_ARGS=--formats=gztar -d.
@@ -18,13 +18,15 @@ cups.so: force
 
 doc:	cups.so
 	rm -rf html
-	epydoc -o html --html $<
+	$(PYTHON) -m pydoc -w cups
+	mkdir html
+	mv cups.html html
 
 doczip:	doc
 	cd html && zip ../cups-html.zip *
 
 clean:
-	-rm -rf build cups.so *.pyc *~
+	-rm -rf build cups.so html *.pyc *~ __pycache__
 
 dist:
 	$(PYTHON) setup.py sdist $(SDIST_ARGS)

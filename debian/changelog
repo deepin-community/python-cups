@@ -1,12 +1,18 @@
-python-cups (2.0.1-5deepin1) unstable; urgency=medium
+python-cups (2.0.4-1) unstable; urgency=medium
 
-  * sync: sync obs workflows
-  * chore(CI): Update obs tag build workflow
-  * chore(CI): remove old obs workflow files
-  * chore(CI): Add OWNERS file for auto review or assign
-  * rebuild for depends error
+  * Team upload.
 
- -- Deepin Packages Builder <packages@deepin.org>  Tue, 20 Jun 2023 10:30:06 +0800
+  [ Debian Janitor ]
+  * Update standards version to 4.6.0, no changes needed.
+  * Update standards version to 4.6.1, no changes needed.
+
+  [ Colin Watson ]
+  * New upstream release.
+  * Use "py3versions -s" in autopkgtest, not "py3versions -r".
+  * Use pybuild-plugin-pyproject.
+  * Standards-Version: 4.7.0 (no changes required).
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 10 Jun 2024 11:07:25 +0100
 
 python-cups (2.0.1-5) unstable; urgency=medium
 

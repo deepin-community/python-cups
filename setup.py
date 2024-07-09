@@ -26,7 +26,7 @@ CUPS project.
 >>> conn = cups.Connection ()
 >>> printers = conn.getPrinters ()
 >>> for printer in printers:
-...     print printer, printers[printer]["device-uri"]
+    ...     print printer, printers[printer]["device-uri"]
 ...
 HP ipp://192.168.1.1:631/printers/HP
 duplex ipp://192.168.1.1:631/printers/duplex
@@ -36,11 +36,11 @@ EPSON-Stylus-D78 usb://EPSON/Stylus%20D78
 
 from distutils.core import setup, Extension
 import sys
-VERSION="2.0.1"
+VERSION="2.0.4"
 libraries=["cups"]
 
 if sys.platform == "darwin" or sys.platform.startswith("freebsd"):
-	libraries.append ("iconv")
+    libraries.append ("iconv")
 
 setup (name="pycups",
        version=VERSION,
@@ -48,18 +48,18 @@ setup (name="pycups",
        long_description=__doc__,
        maintainer="Zdenek Dohnal",
        maintainer_email="zdohnal@redhat.com",
-       url="https://github.com/zdohnal/pycups",
-       download_url="https://github.com/zdohnal/pycups/releases",
+       url="https://github.com/OpenPrinting/pycups",
+       download_url="https://github.com/OpenPrinting/pycups/releases",
        classifiers=[
-		"Intended Audience :: Developers",
-		"Topic :: Software Development :: Libraries :: Python Modules",
-		"License :: OSI Approved :: GNU General Public License (GPL)",
-		"Development Status :: 5 - Production/Stable",
-		"Operating System :: Unix",
-		"Programming Language :: C",
-		"Programming Language :: Python",
-		"Programming Language :: Python :: 3",
-		],
+           "Intended Audience :: Developers",
+           "Topic :: Software Development :: Libraries :: Python Modules",
+           "License :: OSI Approved :: GNU General Public License (GPL)",
+           "Development Status :: 5 - Production/Stable",
+           "Operating System :: Unix",
+           "Programming Language :: C",
+           "Programming Language :: Python",
+           "Programming Language :: Python :: 3",
+           ],
        license="GPLv2+",
        ext_modules=[Extension("cups",
                               ["cupsmodule.c", "cupsconnection.c",
