@@ -571,7 +571,7 @@ cupsipp_iocb_read (PyObject *callable, ipp_uchar_t *buffer, size_t len)
     goto out;
   }
 
-  result = PyEval_CallObject (callable, args);
+  result = PyObject_Call (callable, args, NULL);
   Py_DECREF (args);
 
   if (result == NULL) {
@@ -623,7 +623,7 @@ cupsipp_iocb_write (PyObject *callable, ipp_uchar_t *buffer, size_t len)
     goto out;
   }
 
-  result = PyEval_CallObject (callable, args);
+  result = PyObject_Call (callable, args, NULL);
   Py_DECREF (args);
 
   if (result == NULL) {

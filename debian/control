@@ -5,9 +5,10 @@ Maintainer: Debian Python Team <team+python@tracker.debian.org>
 Uploaders: Debian Printing Team <debian-printing@lists.debian.org>,
 Build-Depends: debhelper-compat (= 13),
                dh-python,
+               pybuild-plugin-pyproject,
                python3-all-dev,
                libcups2-dev
-Standards-Version: 4.5.0
+Standards-Version: 4.7.0
 Homepage: https://github.com/OpenPrinting/pycups
 Vcs-Git: https://salsa.debian.org/python-team/packages/python-cups.git
 Vcs-Browser: https://salsa.debian.org/python-team/packages/python-cups

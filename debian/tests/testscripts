@@ -31,7 +31,7 @@ lpadmin -p $TPRN1 -v file:/dev/null -E -m $ML 2> $STDERR_FILE; filter_stderr_fro
 
 echo " - Now test python3-cups"
 
-pys="$(py3versions -r 2> /dev/null)"
+pys="$(py3versions -s)"
 
 for py in $pys; do
        echo "=== $py ==="

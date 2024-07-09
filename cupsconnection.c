@@ -374,7 +374,14 @@ password_callback (int newstyle,
   } else
     args = Py_BuildValue ("(s)", prompt);
 
-  result = PyEval_CallObject (tls->cups_password_callback, args);
+  if (!args)
+  {
+    debugprintf ("Py_BuildValue failed!");
+    Connection_begin_allow_threads (self);
+    return NULL;
+  }
+
+  result = PyObject_Call (tls->cups_password_callback, args, NULL);
   Py_DECREF (args);
   if (result == NULL)
   {
@@ -593,7 +600,13 @@ cups_dest_cb (void *user_data, unsigned flags, cups_dest_t *dest)
 			destobj);
   Py_DECREF ((PyObject *) destobj);
 
-  result = PyEval_CallObject (context->cb, args);
+  if (!args)
+  {
+    debugprintf ("Py_BuildValue() failed!\n");
+    return 0;
+  }
+
+  result = PyObject_Call (context->cb, args, NULL);
   Py_DECREF (args);
   if (result == NULL) {
     debugprintf ("<- cups_dest_cb (exception from cb func)\n");
@@ -3923,6 +3936,7 @@ Connection_printTestPage (Connection *self, PyObject *args, PyObject *kwds)
     Connection_end_allow_threads (self);
     if (answer && ippGetStatusCode (answer) == IPP_NOT_POSSIBLE) {
       ippDelete (answer);
+      answer = NULL;
       // Perhaps it's a class, not a printer.
       construct_uri (uri, sizeof (uri),
 		     "ipp://localhost/classes/", printer);
@@ -4713,7 +4727,7 @@ Connection_printFiles (Connection *self, PyObject *args, PyObject *kwds)
     }
 
     num_settings = cupsAddOption (UTF8_from_PyObj (&name, key),
-				  UTF8_from_PyObj (&value, key),
+				  UTF8_from_PyObj (&value, val),
 				  num_settings,
 				  &settings);
     free (name);
