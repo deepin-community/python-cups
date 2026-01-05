@@ -1,3 +1,24 @@
+python-cups (2.0.4-3) unstable; urgency=medium
+
+  * Team upload.
+
+  [ Colin Watson ]
+  * Remove Multi-Arch: same, since *.dist-info/WHEEL files conflict.
+
+  [ Helmut Grohne ]
+  * Fix FTCBFS: Multiarchify python Build-Depends (closes: #1107129).
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 13 Oct 2025 01:02:02 +0100
+
+python-cups (2.0.4-2) unstable; urgency=medium
+
+  * Team upload.
+  * Use dh-sequence-python3
+  * Set Rules-Requires-Root: no
+  * Add dependency on python3-setuptools (Closes: #1080730)
+
+ -- Alexandre Detiste <tchet@debian.org>  Tue, 15 Oct 2024 07:48:40 +0200
+
 python-cups (2.0.4-1) unstable; urgency=medium
 
   * Team upload.
